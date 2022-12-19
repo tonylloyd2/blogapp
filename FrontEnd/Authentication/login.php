@@ -18,8 +18,6 @@ $client->addScope("profile");
 error_reporting(0);
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +43,7 @@ error_reporting(0);
    <input type="text" placeholder="Email"> <br>
    <!-- <label for="password">Password</label><br> -->
    <input type="password" placeholder="Password"> <br>
+
    <button>Log In</button>
    <br>
    <br>
@@ -78,6 +77,7 @@ else {
   </ul>
     </div>
    <p>Don't Have An Account? <a href="#"><b>Sign Up</b></a></p>
+
     </div>
     </div>
 </body>
