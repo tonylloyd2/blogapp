@@ -1,6 +1,7 @@
 <?php 
 include "../../BackEnd/database/connect.php";
-$error_msg = "Please fill out this form";
+include_once  "../../BackEnd/auth/register.php";
+$error_msg = " <u>Please fill out this form </u>";
 error_reporting(0);
 $fpasword = $_POST['fpassword'];
 $cpassword = $_POST['password'];
@@ -8,11 +9,18 @@ $email = $_POST['email'];
    
  
 if ($fpasword == $cpassword && isset($_POST['login'])) { 
-  $error_msg = "form validation success!!";
+  $fpasword = $_POST['fpassword'];
+  $cpassword = $_POST['password'];
+  $email = $_POST['email'];
+  $error_msg = "<b style='color:green'> success wait for redirection😊</b>";
+  
+
+  register($conn , $email , $cpassword  ,$error_msg);
+  
   
 }
 elseif ( ($fpasword != $cpassword && isset($_POST['login'])) || ($fpasword != $cpassword && !isset($_POST['login']))   ) {
-  $error_msg = "passwords didn't match";
+  $error_msg = "<b style='color:red'> passwords didn't match 😒</b>";
 }
 
 
@@ -31,6 +39,15 @@ elseif ( ($fpasword != $cpassword && isset($_POST['login'])) || ($fpasword != $c
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400');
 </style>
+<style>
+  .fa-google{
+    background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  }
+</style>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> 
 </head>
 <body>
@@ -42,24 +59,26 @@ elseif ( ($fpasword != $cpassword && isset($_POST['login'])) || ($fpasword != $c
         echo $error_msg;
       ?>  
     </p>
+    
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
     
-    <input type="text" name="email" required placeholder="Email" required id="email"> <br>
-    <input type="text" name="fpassword" required placeholder="Password" id="password"> <br>
-    <input type="text" name="password" required placeholder="Confirm Password" id="cpassword"> <br>
-     <button name="login">Log In</button><br>
+    <input type="email" name="email" required placeholder="Email" required id="email"> <br>
+    <input type="password" name="fpassword" required placeholder="Password" id="password"> <br>
+    <input type="password" name="password" required placeholder="Confirm Password" id="cpassword"> <br>
+     <button name="login">Create Account</button><br>
      
       </form>
-      <input type="checkbox"  onclick="show_pass()" style="max-width:20px;border-style: none; max-height: 10px;"> Show Password ?   
+
+      <input type="checkbox"  onclick="show_pass()" style="max-width:20px;border-style: none; max-height: 10px; margin-left:8%"> Show Password ?   
       <div class="lowertext">
     
     <p style="font-size: 15px;">-Or Sign In With-</p>
     </div>
     <div class="icons">
     <ul class="icons-center">
-  <li><a href="#"><i class="fab fa-facebook" aria-hidden="true" >A1</i></a></li>
-  <li><a href="#"><i class="fab fa-twitter" aria-hidden="true">A1</i></a></li>
-  <li><a href="#"><i class="fab fa-google-plus-g" aria-hidden="true">A1</i></a></li>
+  <li><a href="#"><i class="fab fa-facebook" aria-hidden="true" ></i></a></li>
+  <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+  <li><a href="#"><i class="fab fa-google" aria-hidden="true"></i></a></li>
   </ul>
     </div>
    <p>Already Have An Account? <a href="login.php"><b>Log In</b></a></p>

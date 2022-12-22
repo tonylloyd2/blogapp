@@ -30,6 +30,15 @@ error_reporting(0);
     <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400');
 </style>
+<style>
+  .fa-google{
+    background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  }
+</style>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 </head>
@@ -70,13 +79,13 @@ if (isset($_GET['code'])) {
   // now you can use this profile info to create account in your website and make user logged in.
 } 
 else {
-  echo " <li><a href='".$client->createAuthUrl()."'><i class='fab fa-google-plus-g' aria-hidden='true'>d</i></a></li> ";
+  echo " <li><a href='".$client->createAuthUrl()."'><i class='fab fa-google' aria-hidden='true'>d</i></a></li> ";
 }
   ?>
   
   </ul>
     </div>
-   <p>Don't Have An Account? <a href="#"><b>Sign Up</b></a></p>
+   <p>Don't Have An Account? <a href="./signup.php"><b>Sign Up</b></a></p>
 
     </div>
     </div>
