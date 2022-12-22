@@ -47,7 +47,7 @@ error_reporting(0);
    <button>Log In</button>
    <br>
    <br>
-  <a href="#"><h5 class="forgot-password"> Forgot password ? </h5></a>
+  <a href="./forgotpassword.php"><h5 class="forgot-password"> Forgot password ? </h5></a>
    </form>
     
     <div class="icons">

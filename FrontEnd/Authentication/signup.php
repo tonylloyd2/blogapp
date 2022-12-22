@@ -1,4 +1,23 @@
 <?php 
+include "../../BackEnd/database/connect.php";
+$error_msg = "Please fill out this form";
+error_reporting(0);
+$fpasword = $_POST['fpassword'];
+$cpassword = $_POST['password'];
+$email = $_POST['email'];
+   
+ 
+if ($fpasword == $cpassword && isset($_POST['login'])) { 
+  $error_msg = "form validation success!!";
+  
+}
+elseif ( ($fpasword != $cpassword && isset($_POST['login'])) || ($fpasword != $cpassword && !isset($_POST['login']))   ) {
+  $error_msg = "passwords didn't match";
+}
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,14 +37,22 @@
   <div class="iconform">
     <div class="form">
       <h4>Sign Up An account</h4>
-    <form action="" method="POST">
-    <input type="text" placeholder="Email"> <br>
-    <input type="password" placeholder="Password"> <br>
-    <input type="password" placeholder="Confirm Password"> <br>
-     <button>Log In</button>
+      <p>
+        <?php 
+        echo $error_msg;
+      ?>  
+    </p>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+    
+    <input type="text" name="email" required placeholder="Email" required id="email"> <br>
+    <input type="text" name="fpassword" required placeholder="Password" id="password"> <br>
+    <input type="text" name="password" required placeholder="Confirm Password" id="cpassword"> <br>
+     <button name="login">Log In</button><br>
      
       </form>
+      <input type="checkbox"  onclick="show_pass()" style="max-width:20px;border-style: none; max-height: 10px;"> Show Password ?   
       <div class="lowertext">
+    
     <p style="font-size: 15px;">-Or Sign In With-</p>
     </div>
     <div class="icons">
@@ -40,4 +67,6 @@
     </div>  
 
 </body>
+<script src="../javascript/validate_form.js"></script>
+
 </html>
