@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include "../../BackEnd/database/connect.php";
 include_once  "../../BackEnd/auth/register.php";
 $error_msg = " <u>Please fill out this form </u>";
@@ -12,11 +13,15 @@ if ($fpasword == $cpassword && isset($_POST['login'])) {
   $fpasword = $_POST['fpassword'];
   $cpassword = $_POST['password'];
   $email = $_POST['email'];
-  $error_msg = "<b style='color:green'> success wait for redirection😊</b>";
-  
+  // $error_msg = "<b style='color:green'> success wait for redirection😊</b>";
+  $query_db = mysqli_query($conn , "SELECT * FROM auth where email='$email'");
 
-  register($conn , $email , $cpassword  ,$error_msg);
-  
+  if (mysqli_num_rows($query_db) > 0 ) {
+    $error_msg = "<b style='color:red'> Failed , email already reistered !</b>";
+  }
+  else{
+    register($conn , $email , $cpassword  ,$error_msg);
+  }
   
 }
 elseif ( ($fpasword != $cpassword && isset($_POST['login'])) || ($fpasword != $cpassword && !isset($_POST['login']))   ) {
@@ -38,15 +43,6 @@ elseif ( ($fpasword != $cpassword && isset($_POST['login'])) || ($fpasword != $c
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400');
-</style>
-<style>
-  .fa-google{
-    background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  }
 </style>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> 
 </head>

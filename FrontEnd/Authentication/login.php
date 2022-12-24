@@ -1,6 +1,12 @@
 <?php
+session_start();
 error_reporting(0);
- require_once '../../vendor/autoload.php';
+require_once '../../vendor/autoload.php';
+include_once "../../BackEnd/auth/generate_code.php";
+include_once "../../BackEnd/database/connect.php";
+include_once "../../BackEnd/auth/login.php";
+
+ 
  // init configuration
 $clientID = '1019491450696-iakksnjt3vjj7u09gl2qtvhu7fd9jse7.apps.googleusercontent.com';
 $clientSecret = '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';
@@ -16,6 +22,20 @@ $client->addScope("profile");
 
 // authenticate code from Google OAuth Flow
 error_reporting(0);
+$error_msg = "";
+$session_token = random_code(10);
+if (isset($_POST['login'])) {
+  $email = strtoupper(htmlspecialchars($_POST['email']));
+  $password = strtoupper(htmlspecialchars($_POST['password']));
+  
+  
+  login($conn , $email , $password , $session_token , $error_msg);
+  
+  $error_msg = login($conn , $email , $password , $session_token , $error_msg);
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -47,16 +67,17 @@ error_reporting(0);
     <div class="iconform">
     <div class="form">
       <h4>Login to your account</h4>
-    <form action="" method="POST">
-   <!-- <label for="email">Email</label> <br> -->
-   <input type="text" placeholder="Email"> <br>
-   <!-- <label for="password">Password</label><br> -->
-   <input type="password" placeholder="Password"> <br>
+      <?php echo $error_msg; ?>
+  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+      <!-- <label for="email">Email</label> <br> -->
+      <input type="text" placeholder="Email" name="email" required> <br>
+      <!-- <label for="password">Password</label><br> -->
+      <input type="password" placeholder="Password" name="password" required> <br>
 
-   <button>Log In</button>
-   <br>
-   <br>
-  <a href="./forgotpassword.php"><h5 class="forgot-password"> Forgot password ? </h5></a>
+      <button name="login">Log In</button>
+      <br>
+      <br>
+      <a href="./forgotpassword.php"><h5 class="forgot-password"> Forgot password ? </h5></a>
    </form>
     
     <div class="icons">
