@@ -21,17 +21,15 @@ $client->addScope("email");
 $client->addScope("profile");
 
 // authenticate code from Google OAuth Flow
-error_reporting(0);
+// error_reporting(0);
 $error_msg = "";
-$session_token = random_code(10);
+
 if (isset($_POST['login'])) {
-  $email = strtoupper(htmlspecialchars($_POST['email']));
-  $password = strtoupper(htmlspecialchars($_POST['password']));
   
+  $email = htmlspecialchars($_POST['email']);
+  $password = htmlspecialchars($_POST['password']);   
+  $error_msg = login($conn , $email , $password , $error_msg);   
   
-  login($conn , $email , $password , $session_token , $error_msg);
-  
-  $error_msg = login($conn , $email , $password , $session_token , $error_msg);
 }
 
 
@@ -48,8 +46,12 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="../css/login.css">
 
     <style>
+
+
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400');
 </style>
+
+
 <style>
   .fa-google{
     background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;

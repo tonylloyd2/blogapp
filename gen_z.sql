@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 22, 2022 at 10:35 PM
+-- Generation Time: Dec 26, 2022 at 10:56 PM
 -- Server version: 10.11.0-MariaDB
 -- PHP Version: 8.1.13
 
@@ -30,21 +30,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `auth` (
   `id` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(200) NOT NULL
+  `password` varchar(200) NOT NULL,
+  `session_token` varchar(15) DEFAULT NULL,
+  `is_logged_in` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `auth`
 --
 
-INSERT INTO `auth` (`id`, `email`, `password`) VALUES
-(1, 'admin@gmail.com', 'test1234'),
-(2, 'lloyd5@gmail.co.ke', '1234'),
-(4, 'lloyd@gmail.co.ke', '0909'),
-(5, 'q@q.q', '0909'),
-(6, 'lloyd5@gmail.om', '0909'),
-(7, 'llo@gmail.om', '0909'),
-(8, 'root@e.com', '0909');
+INSERT INTO `auth` (`id`, `email`, `password`, `session_token`, `is_logged_in`) VALUES
+(1, 'admin@gmail.com', '1234', '8XJD9LKUD7W', 1),
+(13, 'lloydkatila@gmail.com', '1234', 'F191WJ7OV6J', 0),
+(14, 'test@test.com', '1234', 'N9118UE2HT4', 0),
+(15, 'lloyd@gmail.com', '1234', '49834C1MQH3', 1);
 
 -- --------------------------------------------------------
 
@@ -86,7 +85,7 @@ ALTER TABLE `user_password_update`
 -- AUTO_INCREMENT for table `auth`
 --
 ALTER TABLE `auth`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_password_update`

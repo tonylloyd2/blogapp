@@ -1,13 +1,22 @@
 <?php
 session_start();
 include "../../BackEnd/database/connect.php";
-include "../../BackEnd/auth/logout.php";
-$session_var = $_SESSION['session_token'];
-echo $session_var;
-$check_credentials=mysqli_query($conn,"SELECT * FROM auth WHERE session_token='$session_var' limit 1");
-if($check_credentials){
+// include "../../BackEnd/auth/logout.php";
+$session_var = $_SESSION['email'];
+$check_credentials = mysqli_query($conn,"SELECT * FROM auth WHERE email ='$session_var' limit 1");
+if(mysqli_num_rows($check_credentials) == 1){
     $user_data = mysqli_fetch_assoc($check_credentials);
+    $session_token = $user_data['session_token'];
+    $_SESSION['session_token'] = $session_token;
+
+}else{
+    echo " <script> alert ('An error occured on our side retry');";
+    header("location:../Authentication/login.php");
 }
+
+
+//check logout
+
 
 
 
@@ -23,10 +32,14 @@ if($check_credentials){
     
 </head>
 <body>
-    <!-- <button type="submit" style="background: red;width:50px;border-radius:10px;margin-left:100px" onclick="<?php logout(); ?>">logout</button> -->
-    <p><?php echo $user_data['email'] ?></p><br>
-    <p><?php echo $user_data['session_token'] ?></p><br>
-    <p><?php echo $user_data['password'] ?></p><br>
+    <form action="../../BackEnd/auth/logout.php" method="post">
+    <button type="submit" name="logout" style="background: red;width:50px;border-radius:10px;margin-left:100px">logout</button>
+    </form>
+    
+    <p><?php  ?></p><br>
+    <p><?php echo "Hello  ".$user_data['email'] ?></p><br>
+    
+
 
 </body>
 </html>
