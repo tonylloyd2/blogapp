@@ -96,9 +96,10 @@ if (isset($_GET['code'])) {
   // get profile info
   $google_oauth = new Google_Service_Oauth2($client);
   $google_account_info = $google_oauth->userinfo->get();
-  $email =  $google_account_info->email;
-  $name =  $google_account_info->name;
-
+  // $email =  $google_account_info->email;
+  // $name =  $google_account_info->name;
+  echo "<pre>";
+  print_r($google_account_info);
   // now you can use this profile info to create account in your website and make user logged in.
 } 
 else {
